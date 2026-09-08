@@ -48,8 +48,7 @@ public class AuthService {
             throw new IllegalArgumentException("Invalid email or password");
         }
 
-        String token = jwtUtil.generateToken(user.getId(), user.getEmail(), user.getRole().name());
-
+        String token = jwtUtil.generateToken(String.valueOf(user.getId()), user.getEmail(), user.getRole().name());
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
         response.put("id", user.getId());

@@ -1,18 +1,25 @@
 package com.SamarthSetu.backend.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "users")
+@Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String password; // stored as a bcrypt hash, never plain text
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;       // USER or CAREGIVER
 
     // filled in during one-time profile setup, empty right after signup
